@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ljz.todolistspringboot.login.mapper.LoginuserinfoMapper">
+  <resultMap id="BaseResultMap" type="com.ljz.todolistspringboot.login.model.Loginuserinfo">
+    <id column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="user_login_id" jdbcType="VARCHAR" property="userLoginId" />
+    <result column="current_pass_word" jdbcType="VARCHAR" property="currentPassWord" />
+    <result column="use_type" jdbcType="VARCHAR" property="useType" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    user_id, user_login_id, current_pass_word, use_type, user_name
+  </sql>
+  <select id="selectByExample" parameterType="com.ljz.todolistspringboot.login.model.LoginuserinfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from loginuserinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from loginuserinfo
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from loginuserinfo
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ljz.todolistspringboot.login.model.LoginuserinfoExample">
+    delete from loginuserinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ljz.todolistspringboot.login.model.Loginuserinfo">
+    insert into loginuserinfo (user_id, user_login_id, current_pass_word, 
+      use_type, user_name)
+    values (#{userId,jdbcType=VARCHAR}, #{userLoginId,jdbcType=VARCHAR}, #{currentPassWord,jdbcType=VARCHAR}, 
+      #{useType,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ljz.todolistspringboot.login.model.Loginuserinfo">
+    insert into loginuserinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userLoginId != null">
+        user_login_id,
+      </if>
+      <if test="currentPassWord != null">
+        current_pass_word,
+      </if>
+      <if test="useType != null">
+        use_type,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userLoginId != null">
+        #{userLoginId,jdbcType=VARCHAR},
+      </if>
+      <if test="currentPassWord != null">
+        #{currentPassWord,jdbcType=VARCHAR},
+      </if>
+      <if test="useType != null">
+        #{useType,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ljz.todolistspringboot.login.model.LoginuserinfoExample" resultType="java.lang.Long">
+    select count(*) from loginuserinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update loginuserinfo
+    <set>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userLoginId != null">
+        user_login_id = #{record.userLoginId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currentPassWord != null">
+        current_pass_word = #{record.currentPassWord,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useType != null">
+        use_type = #{record.useType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update loginuserinfo
+    set user_id = #{record.userId,jdbcType=VARCHAR},
+      user_login_id = #{record.userLoginId,jdbcType=VARCHAR},
+      current_pass_word = #{record.currentPassWord,jdbcType=VARCHAR},
+      use_type = #{record.useType,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ljz.todolistspringboot.login.model.Loginuserinfo">
+    update loginuserinfo
+    <set>
+      <if test="userLoginId != null">
+        user_login_id = #{userLoginId,jdbcType=VARCHAR},
+      </if>
+      <if test="currentPassWord != null">
+        current_pass_word = #{currentPassWord,jdbcType=VARCHAR},
+      </if>
+      <if test="useType != null">
+        use_type = #{useType,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ljz.todolistspringboot.login.model.Loginuserinfo">
+    update loginuserinfo
+    set user_login_id = #{userLoginId,jdbcType=VARCHAR},
+      current_pass_word = #{currentPassWord,jdbcType=VARCHAR},
+      use_type = #{useType,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+</mapper>
