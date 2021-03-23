@@ -1,2 +1,2 @@
 # todolist-spring
-任务管理系统的一个后端
+完整的代码在master分支中实现，后台代码利用springboot实现的代码，安装方式直接下载放入idea即可，有时候需要修改Maven的路径改为自己的路径。
